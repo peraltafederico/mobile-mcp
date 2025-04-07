@@ -1,14 +1,14 @@
 import ControllerFactory from "./appium/factory";
 
 async function runTest() {
-	const session = await new ControllerFactory().getController("android");
+	const controller = await new ControllerFactory().getController("android");
 
 	try {
-		await session.launchApp("com.google.android.youtube");
-		await session.goToHome();
+		await controller.launchApp("com.google.android.youtube");
+		await controller.goToHome();
 	} finally {
-		await session.driver.pause(1000);
-		await session.deleteSession();
+		await controller.driver.pause(1000);
+		await controller.deleteSession();
 	}
 }
 

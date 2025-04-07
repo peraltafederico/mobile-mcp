@@ -52,8 +52,8 @@ export const createMcpServer = (): McpServer => {
 		"List all the installed apps on the device",
 		{},
 		async () => {
-			const session = await new ControllerFactory().getController("android");
-			const result = await session.listApps();
+			const controller = await new ControllerFactory().getController("android");
+			const result = await controller.listApps();
 			return `Found these packages on device: ${result.join(",")}`;
 		}
 	);
@@ -66,8 +66,8 @@ export const createMcpServer = (): McpServer => {
 			operativeSystem,
 		},
 		async ({ packageName, operativeSystem }) => {
-			const session = await new ControllerFactory().getController(operativeSystem);
-			await session.launchApp(packageName);
+			const controller = await new ControllerFactory().getController(operativeSystem);
+			await controller.launchApp(packageName);
 			return `Launched app ${packageName}`;
 		}
 	);
@@ -80,8 +80,8 @@ export const createMcpServer = (): McpServer => {
 			operativeSystem: z.enum(["android", "ios"]).describe("The operative system of the device. If unsure, ask the user first."),
 		},
 		async ({ packageName, operativeSystem }) => {
-			const session = await new ControllerFactory().getController(operativeSystem);
-			await session.closeApp(packageName);
+			const controller = await new ControllerFactory().getController(operativeSystem);
+			await controller.closeApp(packageName);
 			return `Terminated app ${packageName}`;
 		}
 	);
@@ -93,8 +93,8 @@ export const createMcpServer = (): McpServer => {
 			operativeSystem,
 		},
 		async ({ operativeSystem }) => {
-			const session = await new ControllerFactory().getController(operativeSystem);
-			const screenSize = await session.getScreenSize();
+			const controller = await new ControllerFactory().getController(operativeSystem);
+			const screenSize = await controller.getScreenSize();
 			return `Screen size is ${screenSize.width}x${screenSize.height} pixels`;
 		}
 	);
@@ -107,12 +107,12 @@ export const createMcpServer = (): McpServer => {
 			y: z.number().describe("The y coordinate to click between 0 and 1"),
 		},
 		async ({ x, y }) => {
-			const session = await new ControllerFactory().getController("android");
-			const screenSize = await session.getScreenSize();
+			const controller = await new ControllerFactory().getController("android");
+			const screenSize = await controller.getScreenSize();
 			const x0 = Math.floor(screenSize.width * x);
 			const y0 = Math.floor(screenSize.height * y);
 
-			await session.pressByCoordinates(x0, y0);
+			await controller.pressByCoordinates(x0, y0);
 
 			trace(`Clicked on screen at real coordinates: ${x0}, ${y0}`);
 
@@ -127,8 +127,8 @@ export const createMcpServer = (): McpServer => {
 			operativeSystem,
 		},
 		async ({ operativeSystem }) => {
-			const session = await new ControllerFactory().getController(operativeSystem);
-			const elements = await session.getElementsOnScreen();
+			const controller = await new ControllerFactory().getController(operativeSystem);
+			const elements = await controller.getElementsOnScreen();
 			return `Found these elements on screen: ${JSON.stringify(elements)}`;
 		}
 	);
@@ -141,8 +141,8 @@ export const createMcpServer = (): McpServer => {
 			operativeSystem,
 		},
 		async ({ button, operativeSystem }) => {
-			const session = await new ControllerFactory().getController(operativeSystem);
-			await session.pressButton(button);
+			const controller = await new ControllerFactory().getController(operativeSystem);
+			await controller.pressButton(button);
 			return `Pressed the button: ${button}`;
 		}
 	);
@@ -155,8 +155,8 @@ export const createMcpServer = (): McpServer => {
 			operativeSystem,
 		},
 		async ({ direction, operativeSystem }) => {
-			const session = await new ControllerFactory().getController(operativeSystem);
-			await session.swipe(direction);
+			const controller = await new ControllerFactory().getController(operativeSystem);
+			await controller.swipe(direction);
 			return `Swiped ${direction} on screen`;
 		}
 	);
@@ -169,8 +169,8 @@ export const createMcpServer = (): McpServer => {
 			operativeSystem,
 		},
 		async ({ text, operativeSystem }) => {
-			const session = await new ControllerFactory().getController(operativeSystem);
-			await session.typeText(text);
+			const controller = await new ControllerFactory().getController(operativeSystem);
+			await controller.typeText(text);
 			return `Typed text: ${text}`;
 		}
 	);
@@ -187,8 +187,8 @@ export const createMcpServer = (): McpServer => {
 		},
 		async ({ operativeSystem }) => {
 			try {
-				const session = await new ControllerFactory().getController(operativeSystem);
-				const base64Screenshot = await session.takeScreenshot();
+				const controller = await new ControllerFactory().getController(operativeSystem);
+				const base64Screenshot = await controller.takeScreenshot();
 				const screenshot = Buffer.from(base64Screenshot, "base64");
 
 				// Scale down the screenshot by 50%
@@ -230,8 +230,8 @@ export const createMcpServer = (): McpServer => {
 			operativeSystem,
 		},
 		async ({ operativeSystem }) => {
-			const session = await new ControllerFactory().getController(operativeSystem);
-			const elementsTree = await session.getElementsTree();
+			const controller = await new ControllerFactory().getController(operativeSystem);
+			const elementsTree = await controller.getElementsTree();
 			return `Elements tree: ${elementsTree}`;
 		}
 	);
