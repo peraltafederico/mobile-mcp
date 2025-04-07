@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createMcpServer } from "./appiumServer";
+// import { createMcpServer } from "./server";
 import { error } from "./logger";
 
 async function main() {
