@@ -14,7 +14,8 @@
     "build": "tsc && chmod +x lib/index.js",
     "lint": "eslint .",
     "watch": "tsc --watch",
-    "clean": "rm -rf lib"
+    "clean": "rm -rf lib",
+    "debug": "ts-node src/debug.ts"
   },
   "exports": {
     "./package.json": "./package.json",
@@ -41,7 +42,9 @@
     "eslint-plugin": "^1.0.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-notice": "^1.0.0",
-    "typescript": "^5.8.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
+    "webdriverio": "^9.12.3"
   },
   "main": "index.js",
   "bin": {

@@ -1,7 +1,7 @@
 ## Mobile Next - MCP server for Mobile Automation
 
 This is a [Model Context Protocol (MCP) server](https://github.com/modelcontextprotocol) that enables scalable mobile automation through a platform-agnostic interface, eliminating the need for distinct iOS or Android knowledge.
-This server allows Agents and LLMs to interact with native iOS/Android applications and devices through structured accessibility snapshots or coordinate-based taps based on screenshots. 
+This server allows Agents and LLMs to interact with native iOS/Android applications and devices through structured accessibility snapshots or coordinate-based taps based on screenshots.
 
 https://github.com/user-attachments/assets/c4e89c4f-cc71-4424-8184-bdbc8c638fa1
 
@@ -24,7 +24,7 @@ https://github.com/user-attachments/assets/c4e89c4f-cc71-4424-8184-bdbc8c638fa1
 
 ### 🚀 Mobile MCP Roadmap: Building the Future of Mobile
 
-Join us on our journey as we continuously enhance Mobile MCP! 
+Join us on our journey as we continuously enhance Mobile MCP!
 Check out our detailed roadmap to see upcoming features, improvements, and milestones. Your feedback is invaluable in shaping the future of mobile automation.
 
 👉 [Explore the Roadmap](https://github.com/orgs/mobile-next/projects/1)
@@ -33,7 +33,7 @@ Check out our detailed roadmap to see upcoming features, improvements, and miles
 
 How we help to scale mobile automation:
 
-- 📲 Native app automation (iOS and Android) for testing or data-entry scenarios. 
+- 📲 Native app automation (iOS and Android) for testing or data-entry scenarios.
 - 📝 Scripted flows and form interactions without manually controlling simulators/emulators or physical devices (iPhone, Samsung, Google Pixel etc)
 - 🧭 Automating multi-step user journeys driven by an LLM
 - 👆 General-purpose mobile application interaction for agent-based frameworks
@@ -41,11 +41,11 @@ How we help to scale mobile automation:
 
 ## Main Features
 
-- 🚀 **Fast and lightweight**: Uses native accessibility trees for most interactions, or screenshot based coordinates where a11y labels are not available. 
+- 🚀 **Fast and lightweight**: Uses native accessibility trees for most interactions, or screenshot based coordinates where a11y labels are not available.
 - 🤖 **LLM-friendly**: No computer vision model required in Accessibility (Snapshot).
 - 🧿 **Visual Sense**: Evaluates and analyses what’s actually rendered on screen to decide the next action. If accessibility data or view-hierarchy coordinates are unavailable, it falls back to screenshot-based analysis.
 - 📊 **Deterministic tool application**: Reduces ambiguity found in purely screenshot-based approaches by relying on structured data whenever possible.
-- 📺 **Extract structured data**: Enables you to extract structred data from anything visible on screen. 
+- 📺 **Extract structured data**: Enables you to extract structred data from anything visible on screen.
 
 ## Mobile MCP Architecture
 
@@ -133,17 +133,17 @@ The commands and tools support both accessibility-based locators (preferred) and
 - **Description:** Terminates a running application
 - **Parameters:**
   - `packageName` (string): Based on the application's bundle/package identifier calls am force stop or kills the app based on pid.
- 
+
 ## mobile_get_screen_size
 - **Description:** Get the screen size of the mobile device in pixels
 - **Parameters:** None
 
 ## mobile_click_on_screen_at_coordinates
-- **Description:** Taps on specified screen coordinates based on coordinates. 
+- **Description:** Taps on specified screen coordinates based on coordinates.
 - **Parameters:**
   - `x` (number): X-coordinate
   - `y` (number): Y-coordinate
- 
+
 ## mobile_list_elements_on_screen
 - **Description:** List elements on screen and their coordinates, with display text or accessibility label.
 - **Parameters:** None
@@ -159,7 +159,7 @@ The commands and tools support both accessibility-based locators (preferred) and
 - **Parameters:**
   - `x` (number): X-coordinate
   - `y` (number): Y-coordinate
- 
+
 ## mobile_press_button
 - **Description:** Press a button on device (home, back, volume, enter, power button.)
 - **Parameters:** None
@@ -184,7 +184,7 @@ The commands and tools support both accessibility-based locators (preferred) and
   - `startRef` (string): Accessibility/automation ID of the start element
   - `endElement` (string): Human-readable description of the end element
   - `endRef` (string): Accessibility/automation ID of the end element
- 
+
 ## mobile_swipe
 - **Description:** Performs a swipe gesture between two sets of screen coordinates
 - **Parameters:**
@@ -217,3 +217,36 @@ The commands and tools support both accessibility-based locators (preferred) and
 - **Parameters:** None
 
 
+### Running the server locally
+
+```bash
+npm install
+```
+
+Install Appium: https://appium.io/docs/en/2.17/quickstart/install/
+
+Install UiAutomator2: https://appium.io/docs/en/2.17/quickstart/uiauto2-driver/
+
+Build the server:
+
+```bash
+npm run build
+```
+
+Configure your agent, for example with Claude Code:
+
+```
+claude mcp add mobile -- node lib/index.js
+```
+
+Run Appium allowing adb shell:
+
+```bash
+appium --allow-insecure=adb_shell
+```
+
+Run your agent!
+
+```bash
+claude --mcp-debug
+```
